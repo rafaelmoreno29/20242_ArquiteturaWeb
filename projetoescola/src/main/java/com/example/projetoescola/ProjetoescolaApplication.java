@@ -8,7 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.projetoescola.models.CategoriaCurso;
 import com.example.projetoescola.models.Curso;
+import com.example.projetoescola.repositories.CategoriaCursoRepository;
 import com.example.projetoescola.repositories.CursoRepository;
 
 @SpringBootApplication
@@ -16,12 +18,22 @@ public class ProjetoescolaApplication {
 
 	@Bean
 	public CommandLineRunner init(
-			@Autowired CursoRepository cursoRepository) {
+			@Autowired CursoRepository cursoRepository,
+			@Autowired CategoriaCursoRepository categoriaCursoRepository) {
 		return args -> {
+			System.out.println("*** CRIANDO AS CATEGORIAS ***");
+			CategoriaCurso c1 = categoriaCursoRepository.salvar(
+					new CategoriaCurso(0, "Tecnólogo"));
+			CategoriaCurso c2 = categoriaCursoRepository.salvar(
+					new CategoriaCurso(0, "Bacharel"));
+			List<CategoriaCurso> listaCategorias = categoriaCursoRepository.obterTodos();
+			listaCategorias.forEach(System.out::println);
+
+			System.out.println("*** CRIANDO OS CURSOS ***");
 			cursoRepository.salvar(
-					new Curso(0L, "Curso 1", 2000));
+					new Curso(0L, "ADS", 2000, c1));
 			cursoRepository.salvar(
-					new Curso(0L, "Curso 2", 2050));
+					new Curso(0L, "SI", 2050, c2));
 			List<Curso> listaCursos = cursoRepository.obterTodos();
 			listaCursos.forEach(System.out::println);
 		};
