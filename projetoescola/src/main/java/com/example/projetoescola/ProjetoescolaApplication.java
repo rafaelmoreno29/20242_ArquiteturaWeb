@@ -23,9 +23,9 @@ public class ProjetoescolaApplication {
 		return args -> {
 			System.out.println("*** CRIANDO AS CATEGORIAS ***");
 			CategoriaCurso c1 = categoriaCursoRepository.salvar(
-					new CategoriaCurso(0, "Tecnólogo"));
+					new CategoriaCurso(0, "Tecnólogo", null));
 			CategoriaCurso c2 = categoriaCursoRepository.salvar(
-					new CategoriaCurso(0, "Bacharel"));
+					new CategoriaCurso(0, "Bacharel", null));
 			List<CategoriaCurso> listaCategorias = categoriaCursoRepository.obterTodos();
 			listaCategorias.forEach(System.out::println);
 
