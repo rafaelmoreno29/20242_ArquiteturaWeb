@@ -10,8 +10,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +23,13 @@ public class CursoController {
 
     @GetMapping()
     public List<Curso> getCursos() {
-        return cursoRepository.obterTodos();
+        return cursoRepository.findAll();
     }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public void postCurso(@RequestBody Curso curso) {
-        cursoRepository.salvar(curso);
+        cursoRepository.save(curso);
     }
 
 }

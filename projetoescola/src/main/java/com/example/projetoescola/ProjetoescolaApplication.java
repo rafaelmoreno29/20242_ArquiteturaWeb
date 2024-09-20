@@ -12,6 +12,7 @@ import com.example.projetoescola.models.CategoriaCurso;
 import com.example.projetoescola.models.Curso;
 import com.example.projetoescola.repositories.CategoriaCursoRepository;
 import com.example.projetoescola.repositories.CursoRepository;
+import java.util.List;
 
 @SpringBootApplication
 public class ProjetoescolaApplication {
@@ -22,20 +23,42 @@ public class ProjetoescolaApplication {
 			@Autowired CategoriaCursoRepository categoriaCursoRepository) {
 		return args -> {
 			System.out.println("*** CRIANDO AS CATEGORIAS ***");
-			CategoriaCurso c1 = categoriaCursoRepository.salvar(
-					new CategoriaCurso(0, "Tecnólogo", null));
-			CategoriaCurso c2 = categoriaCursoRepository.salvar(
-					new CategoriaCurso(0, "Bacharel", null));
-			List<CategoriaCurso> listaCategorias = categoriaCursoRepository.obterTodos();
-			listaCategorias.forEach(System.out::println);
+			CategoriaCurso c1 = categoriaCursoRepository.save(
+					new CategoriaCurso(0, "Tecnólogo"));
+			CategoriaCurso c2 = categoriaCursoRepository.save(
+					new CategoriaCurso(0, "Bacharel"));
+			System.out.println("*** LISTANDO AS CATEGORIAS ***");
+
+			List<CategoriaCurso> listaCategorias = categoriaCursoRepository.findAll();
+			listaCategorias.stream().map(c -> c.getNome()).forEach(System.out::println);
 
 			System.out.println("*** CRIANDO OS CURSOS ***");
-			cursoRepository.salvar(
-					new Curso(0L, "ADS", 2000, c1));
-			cursoRepository.salvar(
-					new Curso(0L, "SI", 2050, c2));
-			List<Curso> listaCursos = cursoRepository.obterTodos();
-			listaCursos.forEach(System.out::println);
+			cursoRepository.save(
+					new Curso(0L, "ADS", 2000, listaCategorias.get(0)));
+			cursoRepository.save(
+					new Curso(0L, "SI", 2050, listaCategorias.get(1)));
+			System.out.println("*** LISTANDO OS CURSOS ***");
+
+			List<Curso> listaCursos = cursoRepository.findAll();
+			listaCursos.stream().map(x -> x.getNome()).forEach(System.out::println);
+
+			System.out.println("*** LISTAR POR NOME ***");
+			listaCursos = cursoRepository.findByNome("ADS");
+			listaCursos.stream().map(x -> x.getNome())
+					.forEach(System.out::println);
+			System.out.println("*** TESTANDO LAZY E EAGER ***");
+
+			/*
+			 * List<CategoriaCurso> categs = categoriaCursoRepository.findAll();
+			 * for (CategoriaCurso ca : categs) {
+			 * System.out.println(ca.getId() + " - " + ca.getNome() + "qtde cursos: " +
+			 * ca.getCursos().size());
+			 * }
+			 */
+			CategoriaCurso cc = categoriaCursoRepository
+					.findCategoriaCursoFetchCursos((long) 1);
+			System.out.println(cc.getCursos().size());
+
 		};
 	}
 
