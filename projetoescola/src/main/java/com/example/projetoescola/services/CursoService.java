@@ -1,5 +1,8 @@
 package com.example.projetoescola.services;
 
-public interface CursoService {
+import com.example.projetoescola.dtos.InsereCursoDTO;
+import com.example.projetoescola.models.Curso;
 
+public interface CursoService {
+    Curso inserir(InsereCursoDTO curso);
 }
