@@ -46,8 +46,8 @@ public class ProjetoescolaApplication {
 			listaCursos = cursoRepository.findByNome("ADS");
 			listaCursos.stream().map(x -> x.getNome())
 					.forEach(System.out::println);
-			System.out.println("*** TESTANDO LAZY E EAGER ***");
 
+			System.out.println("*** TESTANDO LAZY E EAGER ***");
 			/*
 			 * List<CategoriaCurso> categs = categoriaCursoRepository.findAll();
 			 * for (CategoriaCurso ca : categs) {
