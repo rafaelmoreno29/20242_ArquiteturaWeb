@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import com.example.projetoescola.dtos.CursoDTO;
 
 @RestController
 @RequestMapping("/api/curso")
@@ -23,12 +24,10 @@ public class CursoController {
     @Autowired
     private CursoService cursoService;
 
-    /*
-     * @GetMapping()
-     * public List<Curso> getCursos() {
-     * return cursoRepository.findAll();
-     * }
-     */
+    @GetMapping()
+    public List<CursoDTO> getCursos() {
+        return cursoService.listarTodos();
+    }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)

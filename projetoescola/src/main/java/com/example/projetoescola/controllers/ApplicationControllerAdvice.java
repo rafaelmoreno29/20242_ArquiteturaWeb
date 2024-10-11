@@ -17,5 +17,4 @@ public class ApplicationControllerAdvice {
         String msg = ex.getMessage();
         return new ApiErrorDTO(msg);
     }
-
 }
