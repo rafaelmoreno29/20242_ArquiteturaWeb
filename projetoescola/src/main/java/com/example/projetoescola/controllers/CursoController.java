@@ -7,6 +7,8 @@ import com.example.projetoescola.models.Curso;
 import com.example.projetoescola.repositories.CursoRepository;
 import com.example.projetoescola.services.CursoService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class CursoController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public void postCurso(@RequestBody InsereCursoDTO curso) {
+    public void postCurso(@Valid @RequestBody InsereCursoDTO curso) {
         cursoService.inserir(curso);
     }
 
